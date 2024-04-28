@@ -23,7 +23,7 @@ function createGrid(squares) {
       col.className = "col";
       row.appendChild(col);
 
-      col.addEventListener("mouseover", drawColor);
+      col.addEventListener("click", drawColor);
     }
     container.appendChild(row);
   }
