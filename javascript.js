@@ -1,4 +1,5 @@
 const button = document.querySelector("button");
+const content = document.querySelector(".content");
 
 createGrid(64);
 
@@ -24,13 +25,14 @@ function createGrid(squares) {
       //append columns to rows
       row.appendChild(col);
 
-      col.addEventListener("mousemove", () => {
-        col.style.backgroundColor = "#bfbfbf";
+      col.addEventListener("mouseenter", () => {
+        col.style.backgroundColor = randomColor();
       });
     }
     //append rows to container
     container.appendChild(row);
   }
+  content.appendChild(container);
 }
 
 function changeGrid() {
@@ -45,3 +47,9 @@ function changeGrid() {
     alert("You cannot input a grid size greater than 100 or less than 0.")
   }
 }
+
+function randomColor() {
+  const coldColors = ["#000000", "#0d0d0d", "#1a1a1a", "#262626", "#333333", "#404040", "#4d4d4d", "#595959", "#666666", "#737373", "#808080", "#8c8c8c", "#999999"];
+  return coldColors[Math.floor(Math.random() * coldColors.length)];
+}
+
