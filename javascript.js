@@ -1,8 +1,10 @@
 const button = document.querySelector("button");
 
-createGrid();
+createGrid(64);
 
-function createGrid() {
+button.addEventListener("click", changeGrid);
+
+function createGrid(squares) {
   const body = document.querySelector("body");
   const container = document.createElement("div");
 
@@ -10,24 +12,13 @@ function createGrid() {
 
   body.appendChild(container);
 
-  button.addEventListener("click", changeGrid);
-
-  function changeGrid() {
-    container.remove();
-    createGrid();
-  }
-
-  let squares = Number(
-    prompt("Please, enter the grid size you want to work on.", 64)
-  );
-
   for (let i = 0; i < squares; i++) {
-    //Creating 16 rows
+    //Creates 64 rows
     const row = document.createElement("div");
     row.className = "row";
 
     for (let i = 0; i < squares; i++) {
-      //creating 16 columns
+      //creates 64 columns
       const col = document.createElement("div");
       col.className = "col";
       //append columns to rows
@@ -39,8 +30,22 @@ function createGrid() {
       col.addEventListener("mouseout", () => {
         col.style.backgroundColor = "white";
       });
+      col.addEventListener()
     }
     //append rows to container
     container.appendChild(row);
+  }
+}
+
+function changeGrid() {
+  const container = document.querySelector(".container");
+  let squares = Number(
+    prompt("Please, enter the grid size you want to work on. (max: 100)", 64)
+  );
+  if(!(squares >= 100 || squares <= 0)) {
+    container.remove();
+    createGrid(squares);
+  } else {
+    alert("You cannot input a grid size greater than 100 or less than 0.")
   }
 }
