@@ -25,12 +25,8 @@ function createGrid(squares) {
       row.appendChild(col);
 
       col.addEventListener("mousemove", () => {
-        col.style.backgroundColor = "grey";
+        col.style.backgroundColor = "#bfbfbf";
       });
-      col.addEventListener("mouseout", () => {
-        col.style.backgroundColor = "white";
-      });
-      col.addEventListener()
     }
     //append rows to container
     container.appendChild(row);
@@ -40,9 +36,9 @@ function createGrid(squares) {
 function changeGrid() {
   const container = document.querySelector(".container");
   let squares = Number(
-    prompt("Please, enter the grid size you want to work on. (max: 100)", 64)
+    prompt("Please, enter the grid size you want to work on. (max: 100, min: 1)", 64)
   );
-  if(!(squares >= 100 || squares <= 0)) {
+  if(!(squares > 100 || squares <= 0)) {
     container.remove();
     createGrid(squares);
   } else {
