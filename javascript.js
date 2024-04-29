@@ -2,9 +2,11 @@ const button = document.querySelector("button");
 const eraserButton = document.querySelector(".eraser");
 const blackTonesButton = document.querySelector(".blackTonesButton");
 const content = document.querySelector(".content");
+const webpage = document.querySelector("html");
 
 let eraserToggle = false;
 let blackTonesToggle = false;
+let paintBrush = false;
 
 function createGrid(squares) {
   const body = document.querySelector("body");
@@ -22,8 +24,6 @@ function createGrid(squares) {
       const col = document.createElement("div");
       col.className = "col";
       row.appendChild(col);
-
-      col.addEventListener("click", drawColor);
     }
     container.appendChild(row);
   }
@@ -78,14 +78,17 @@ function blackTones() {
   return blackColors[Math.floor(Math.random() * blackColors.length)];
 }
 
-function drawColor() {
-  this.style.backgroundColor = "black";
+function drawColor(e) {
+  e.preventDefault();
+  if (!e.target.matches(".col")) return;
+
+  e.target.style.backgroundColor = "black";
 
   if (eraserToggle) {
-    this.style.backgroundColor = "white";
+    e.target.style.backgroundColor = "white";
   }
   if (blackTonesToggle) {
-    this.style.backgroundColor = blackTones();
+    e.target.style.backgroundColor = blackTones();
   }
 }
 
@@ -94,18 +97,32 @@ function main() {
 
   button.addEventListener("click", changeGrid);
 
-  blackTonesButton.addEventListener("click", function () {
+  webpage.addEventListener("mousedown", (e) => {
+    paintBrush = true;
+    drawColor(e);
+  });
+
+  webpage.addEventListener("mouseover", (e) => {
+    if (!paintBrush) return;
+    drawColor(e);
+  });
+
+  webpage.addEventListener("mouseup", () => {
+    paintBrush = false;
+  });
+
+  blackTonesButton.addEventListener("click", function (e) {
     blackTonesToggle = !blackTonesToggle;
     eraserToggle = false;
     toggleColorButton();
-    drawColor();
+    drawColor(e);
   });
 
-  eraserButton.addEventListener("click", function () {
+  eraserButton.addEventListener("click", function (e) {
     eraserToggle = !eraserToggle;
     blackTonesToggle = false;
     toggleColorButton();
-    drawColor();
+    drawColor(e);
   });
 }
 
