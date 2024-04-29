@@ -55,6 +55,7 @@ h3 {
 
 .col {
   flex: 1;
+  border: 1px solid grey;
 }
 
 button {
